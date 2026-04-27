@@ -45,7 +45,16 @@ function createItem(item) {
 		clone.remove();
 		const items = getTasksFromDOM();
 		saveTasks(items); 
-	})
+	});
+
+	duplicateButton.addEventListener('click', () => {
+		const itemName = textElement.textContent;
+		const newItem = createItem(itemName);
+		listElement.prepend(newItem);
+
+		const items = getTasksFromDOM();
+		saveTasks(items);
+	});
 
 	return clone;
 }
@@ -59,8 +68,8 @@ function getTasksFromDOM() {
 }
 
 function saveTasks(tasks) {
-	tasks = JSON.stringify(tasks);
-	localStorage.setItem('tasks', tasks);
+	const tasksForStoring = JSON.stringify(tasks);
+	localStorage.setItem('tasks', tasksForStoring);
 }
 
 items = loadTasks();
